@@ -1,0 +1,95 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <h2>Quanment</h2>
+    <p class="auth-subtitle">Quantity Measurement App — Sign in to continue</p>
+
+    <!-- ✅ GLOBAL MESSAGES (VERY IMPORTANT) -->
+    <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+    <!-- Tabs -->
+    <div class="tab-buttons">
+      <button [class.active]="isLogin" (click)="isLogin=true; errorMsg=''; successMsg=''">Login</button>
+      <button [class.active]="!isLogin" (click)="isLogin=false; errorMsg=''; successMsg=''">Signup</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form *ngIf="isLogin">
+      <div class="input-group">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button class="primary-btn" type="button" (click)="submit()">
+        Login
+      </button>
+
+      <p class="switch-text">
+        Not a member? <span (click)="isLogin=false">Signup now</span>
+      </p>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form *ngIf="!isLogin">
+      <div class="input-group">
+        <label>Name</label>
+        <input
+          type="text"
+          [(ngModel)]="registerName"
+          name="registerName"
+          placeholder="Enter your name"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="registerEmail"
+          name="registerEmail"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          [(ngModel)]="registerPassword"
+          name="registerPassword"
+          placeholder="Create a password"
+          required
+        />
+      </div>
+
+      <button class="primary-btn" type="button" (click)="submit()">
+        Create Account
+      </button>
+
+      <p class="switch-text">
+        Already have an account? <span (click)="isLogin=true">Login</span>
+      </p>
+    </form>
+
+  </div>
+</div>
