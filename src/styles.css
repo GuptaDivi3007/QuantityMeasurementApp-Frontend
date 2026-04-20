@@ -1,0 +1,82 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* ===== GLOBAL THEME ===== */
+:root {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-card: #1f1f1f;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+
+  --accent: #a855f7; /* purple */
+  --accent-light: #c084fc;
+
+  --border: #2a2a2a;
+}
+
+/* ===== RESET ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+
+  /* 🔥 BLACK + PURPLE GRADIENT */
+  background: radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.15), transparent 40%),
+              radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.1), transparent 40%),
+              #0a0a0a;
+
+  color: white;
+}
+
+/* ===== COMMON CLASSES ===== */
+.card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.button-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-primary:hover {
+  background: var(--accent-light);
+}
+
+.input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar {
+  background: var(--bg-secondary);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+
+
+/* 
+.highlight {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--accent);
+  padding: 8px 16px;
+  border-radius: 20px;
+} */
