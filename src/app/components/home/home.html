@@ -1,0 +1,196 @@
+<div class="home-page">
+
+  <header class="topbar">
+    <div class="brand-section">
+      <div class="brand-logo">Q</div>
+      <div class="brand-text">
+        <h2>Quanment</h2>
+        <p>Quantity Measurement App</p>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="topbar-actions">
+        <button class="ghost-btn" (click)="goToHistory()">History</button>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+
+      <nav class="operation-nav">
+        <button
+          *ngFor="let operation of operationMap[selectedType]"
+          class="op-nav-btn"
+          [class.active]="selectedOperation === operation"
+          (click)="selectOperation(operation)"
+        >
+          {{ operation | titlecase }}
+        </button>
+        <span *ngIf="selectedType === 'temperature'" class="temp-note">
+          Temperature: convert &amp; compare only
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-layout">
+
+    <aside class="left-sidebar">
+      <div class="sidebar-header">
+        <h3>Choose Type</h3>
+        <p>Select a category</p>
+      </div>
+
+      <div class="type-list">
+
+        <div
+          class="type-item"
+          [class.active]="selectedType === 'length'"
+          (click)="selectType('length')"
+        >
+          <span class="type-icon">📏</span>
+          <div>
+            <h4>Length</h4>
+            <span>Distance &amp; size</span>
+          </div>
+        </div>
+
+        <div
+          class="type-item"
+          [class.active]="selectedType === 'temperature'"
+          (click)="selectType('temperature')"
+        >
+          <span class="type-icon">🌡️</span>
+          <div>
+            <h4>Temperature</h4>
+            <span>Heat values</span>
+          </div>
+        </div>
+
+        <div
+          class="type-item"
+          [class.active]="selectedType === 'volume'"
+          (click)="selectType('volume')"
+        >
+          <span class="type-icon">🧪</span>
+          <div>
+            <h4>Volume</h4>
+            <span>Liquid measure</span>
+          </div>
+        </div>
+
+        <div
+          class="type-item"
+          [class.active]="selectedType === 'weight'"
+          (click)="selectType('weight')"
+        >
+          <span class="type-icon">⚖️</span>
+          <div>
+            <h4>Weight</h4>
+            <span>Mass values</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-stats">
+        <div class="stat-pill">
+          <span>Categories</span>
+          <strong>4</strong>
+        </div>
+        <div class="stat-pill">
+          <span>Operations</span>
+          <strong>6</strong>
+        </div>
+      </div>
+    </aside>
+
+    <main class="calc-area">
+
+      <div class="calc-header">
+        <div>
+          <h2>Calculator</h2>
+          <p>{{ selectedType | titlecase }} — {{ selectedOperation | titlecase }}</p>
+        </div>
+        <div class="active-type-badge">
+          <span class="badge-dot"></span>
+          {{ selectedType | titlecase }}
+        </div>
+      </div>
+
+      <div class="calc-inputs-row">
+
+        <!-- FIRST INPUT -->
+        <div class="input-card">
+          <label class="input-label">From</label>
+          <input
+            type="number"
+            [(ngModel)]="firstValue"
+            placeholder="Enter value"
+            class="val-input"
+          />
+          <select [(ngModel)]="firstUnit" class="unit-select">
+            <option *ngFor="let unit of unitMap[selectedType]" [value]="unit">
+              {{ unit | titlecase }}
+            </option>
+          </select>
+        </div>
+
+        <!-- OPERATION SYMBOL -->
+        <div class="op-symbol-box">
+          <div class="op-symbol">
+            <span *ngIf="selectedOperation === 'convert'">⇄</span>
+            <span *ngIf="selectedOperation === 'compare'">≷</span>
+            <span *ngIf="selectedOperation === 'add'">+</span>
+            <span *ngIf="selectedOperation === 'subtract'">−</span>
+            <span *ngIf="selectedOperation === 'multiply'">×</span>
+            <span *ngIf="selectedOperation === 'divide'">÷</span>
+          </div>
+          <span class="op-label">{{ selectedOperation | titlecase }}</span>
+        </div>
+
+        <!-- SECOND INPUT -->
+        <div class="input-card">
+          <label class="input-label">
+            {{ selectedOperation === 'convert' ? 'To' : 'With' }}
+          </label>
+
+          <input
+            type="number"
+            [(ngModel)]="secondValue"
+            placeholder="Enter value"
+            [readonly]="selectedOperation === 'convert'"
+            class="val-input"
+            [class.readonly]="selectedOperation === 'convert'"
+          />
+
+          <select [(ngModel)]="secondUnit" class="unit-select">
+            <option *ngFor="let unit of unitMap[selectedType]" [value]="unit">
+              {{ unit | titlecase }}
+            </option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- ✅ ONLY BUTTON TRIGGERS CALCULATION -->
+      <button type="button" class="calc-btn" (click)="performAction()">
+        Calculate
+      </button>
+
+      <div class="result-box">
+        <div class="result-header">
+          <span class="result-label">Result</span>
+          <span class="result-chip">{{ selectedOperation | titlecase }}</span>
+        </div>
+        <h2 class="result-text">{{ resultText }}</h2>
+      </div>
+
+      <p class="note-text">
+        ⓘ Temperature supports only convert &amp; compare. Arithmetic is available for length, volume and weight.
+      </p>
+
+    </main>
+  </div>
+
+</div>
